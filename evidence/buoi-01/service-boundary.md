@@ -2,11 +2,11 @@
 
 ## 1. Thông tin nhóm
 
-- Tên nhóm:
-- Lớp:
-- Thành viên:
-- Service nhóm phụ trách:
-- Sản phẩm tổng thể của lớp:
+- Tên nhóm: Nhom 6
+- Lớp: CNTT 17-13
+- Thành viên: 2
+- Service nhóm phụ trách: A5
+- Sản phẩm tổng thể của lớp: 
 
 ## 2. Actor
 
