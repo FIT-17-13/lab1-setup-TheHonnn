@@ -98,7 +98,7 @@ subgraph PLATFORM["Central Analytics Platform"]
     Analytics[Analytics Processing Service]
 
     DB[(Central Database)]
-NHOM5["Paul"]
+NHOM5["[5] Team :Paul"]
 
 end
 subgraph USERS["Management & Monitoring"]
