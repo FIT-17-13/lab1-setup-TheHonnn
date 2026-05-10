@@ -84,6 +84,7 @@ Service nào gọi đến service này?
 Có thể vẽ bằng Mermaid, draw.io, Ludichart hoặc ảnh chụp sơ đồ.
 ```mermaid
 flowchart LR
+linkStyle default interpolate linear
 subgraph INPUT["Data Sources & Devices"]
 
     IoT[IoT Ingestion Layer]
