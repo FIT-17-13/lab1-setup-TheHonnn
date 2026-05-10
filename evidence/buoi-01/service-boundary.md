@@ -84,16 +84,42 @@ Service nào gọi đến service này?
 Có thể vẽ bằng Mermaid, draw.io, Ludichart hoặc ảnh chụp sơ đồ.
 ```mermaid
 flowchart LR
+subgraph INPUT["Data Sources & Devices"]
 
-IoT[IoT Ingestion Layer] -->|Telemetry Data| Analytics[⚙️ Central Analytics Service]
+    IoT[IoT Ingestion Layer]
+    Camera[AI Vision System]
+    Gate[Smart Access Gate]
+    Core[Core Business Services]
 
-Camera[AI Vision System] -->|Detection Events| Analytics
+end
+subgraph PLATFORM["Central Analytics Platform"]
 
-Gate[Smart Access Gate] -->|Access Logs| Analytics
+    Analytics[Analytics Processing Service]
 
-Core[Core Business Services] -->|Business Metrics| Analytics
+    DB[(Central Database)]
 
-Analytics -->|Processed Data| DB[(Central Database)]
+end
+subgraph USERS["Management & Monitoring"]
 
-Dashboard[Dashboard / User Portal] -->|GET Reports| Analytics
+    Dashboard[Dashboard / User Portal]
+
+end
+IoT -->|Telemetry Data| Analytics
+Camera -->|Detection Events| Analytics
+Gate -->|Access Logs| Analytics
+Core -->|Business Data| Analytics
+
+Analytics -->|Store Processed Data| DB
+
+Dashboard -- GET Reports --> Analytics
+
+classDef source fill:#dff7f2,stroke:#2a9d8f,color:#000,stroke-width:2px;
+classDef service fill:#ece8ff,stroke:#6c63ff,color:#000,stroke-width:2px;
+classDef database fill:#f2f2f2,stroke:#666,color:#000,stroke-width:2px;
+classDef dashboard fill:#fff3d6,stroke:#e9a400,color:#000,stroke-width:2px;
+
+class IoT,Camera,Gate,Core source;
+class Analytics service;
+class DB database;
+class Dashboard dashboard;
 ```
