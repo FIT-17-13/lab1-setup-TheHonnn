@@ -82,11 +82,18 @@ Service nào gọi đến service này?
 ## 8. Sơ đồ minh họa
 
 Có thể vẽ bằng Mermaid, draw.io, Ludichart hoặc ảnh chụp sơ đồ.
-
 ```mermaid
-flowchart LR IoT[IoT Ingestion] --> Analytics[Analytics Service] 
-Camera[AI Vision] --> Analytics 
-Gate[Access Gate] --> Analytics 
-Core[Core Business] --> Analytics 
-Analytics --> DB[(Database)] 
-Dashboard[Dashboard/User] -- GET Report --> Analytics
+flowchart LR
+
+IoT[IoT Ingestion Layer] -->|Telemetry Data| Analytics[⚙️ Central Analytics Service]
+
+Camera[AI Vision System] -->|Detection Events| Analytics
+
+Gate[Smart Access Gate] -->|Access Logs| Analytics
+
+Core[Core Business Services] -->|Business Metrics| Analytics
+
+Analytics -->|Processed Data| DB[(Central Database)]
+
+Dashboard[Dashboard / User Portal] -->|GET Reports| Analytics
+```
