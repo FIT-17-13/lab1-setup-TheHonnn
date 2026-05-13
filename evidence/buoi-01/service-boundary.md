@@ -125,4 +125,4 @@ flowchart LR
 
     style Upstream fill:none,stroke:#cbd5e1,stroke-width:1px,stroke-dasharray: 4 4,color:#94a3b8
     style Analytics fill:#f8faff,stroke:#4f46e5,stroke-width:3px,color:#4f46e5,rx:20,ry:20
-    ```
+```
