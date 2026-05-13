@@ -84,50 +84,45 @@ Service nào gọi đến service này?
 linkStyle default interpolate linear
 Có thể vẽ bằng Mermaid, draw.io, Ludichart hoặc ảnh chụp sơ đồ.
 ```mermaid
-
 flowchart LR
-linkStyle default interpolate linear
+    linkStyle default interpolate linear
 
+    subgraph Upstream ["Upstream Services"]
+        direction TB
+        A["IoT Ingestion"]
+        B["AI Vision"]
+        C["Access Gate"]
+        D["Core Business"]
+    end
 
-subgraph Upstream ["Upstream Services"]
-    direction TB
+    subgraph Analytics ["ANALYTICS SERVICE BOUNDARY"]
+        W["JSON"]
+        E["Processing & Analytics<br>Aggregate data<br>Generate metrics<br>Create reports"]
+        F[(Database)]
+        
+        E --- |"reports / metrics"| F
+        
+    end
 
-    A["IoT Ingestion"]
-    B["AI Vision"]
-    C["Access Gate"]
-    D["Core Business"]
+    G["Dashboard / Admin UI"]
 
-end
+    A -- "POST/sensor events" --> E
+    B -- "POST/detection events" --> E
+    C -- "POST/access logs" --> E
+    D -- "POST/alerts events" --> E
 
-subgraph Analytics ["Analytics Service Boundary"]
-    direction TB
+    E -- "GET/analytics" --> G
+    
+    classDef sourceNode fill:#eaf7f2,stroke:#8ac2a5,stroke-width:1.5px,color:#0c5b45
+    classDef coreNode fill:#ffffff,stroke:#4f46e5,stroke-width:2px,color:#1e1b4b,rx:10,ry:10
+    classDef dbNode fill:#ffffff,stroke:#64748b,stroke-width:1.5px,color:#334155
+    classDef uiNode fill:#fff1f2,stroke:#fb7185,stroke-width:1.5px,color:#881337
 
-    E["Processing & Analytics<br/>• Aggregate data<br/>• Generate metrics<br/>• Create reports"]
+    class A,B,C,D sourceNode
+    class E coreNode
+    class F dbNode
+    class G,W uiNode
 
-    F[(Analytics Database)]
-
-    E -->|"Reports & Metrics"| F
-
-end
-
-G["Dashboard / Admin UI"]
-
-A -->|"POST /sensor-events"| E
-B -->|"POST /detection-events"| E
-C -->|"POST /access-logs"| E
-D -->|"POST /alert-events"| E
-
-E -->|"GET /analytics"| G
-classDef upstream fill:#D6F5F3,stroke:#0F766E,stroke-width:2px,color:#111827;
-classDef analytics fill:#FFE4E6,stroke:#E11D48,stroke-width:2px,color:#111827;
-classDef database fill:#F3F4F6,stroke:#4B5563,stroke-width:2px,color:#111827;
-classDef dashboard fill:#DBEAFE,stroke:#2563EB,stroke-width:2px,color:#111827;
-
-class A,B,C,D upstream;
-class E analytics;
-class F database;
-class G dashboard;
-
-style Upstream fill:#F0FDFA,stroke:#14B8A6,stroke-width:2px,color:#111827;
-style Analytics fill:#FFF1F2,stroke:#F43F5E,stroke-width:2px,stroke-dasharray: 8 6,color:#111827;
-```
+    style Upstream fill:none,stroke:#cbd5e1,stroke-width:1px,stroke-dasharray: 4 4,color:#94a3b8
+    style Analytics fill:#f8faff,stroke:#4f46e5,stroke-width:3px,color:#4f46e5,rx:20,ry:20
+    ```
