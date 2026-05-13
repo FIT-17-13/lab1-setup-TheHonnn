@@ -80,7 +80,7 @@ GET	    /api/v1/analytics/metrics/environment	Lấy thống kê nhiệt độ tr
 
 Service nào gọi đến service này?
 - Dashboard/ U: Gọi để lấy dữ liệu hiển thị báo cáo.
-## 8. Sơ đồ minh họa
+## 8. Sơ đồ minh họa (service_boundary.drawio.svg)
 linkStyle default interpolate linear
 Có thể vẽ bằng Mermaid, draw.io, Ludichart hoặc ảnh chụp sơ đồ.
 ```mermaid
