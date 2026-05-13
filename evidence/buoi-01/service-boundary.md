@@ -62,13 +62,14 @@ Service KHÔNG làm gì?
 Các metric phục vụ hiển thị trên Dashboard.
 
 ## 6. API dự kiến
-
+```
 Method	Endpoint	                           Mục đích
 GET	    /health	                                Kiểm tra trạng thái hoạt động của service.
 GET   	/api/v1/analytics/daily-summary	        Lấy báo cáo tổng hợp trong ngày (lượt truy cập, cảnh báo, nhiệt độ).
 GET	    /api/v1/analytics/metrics/access	    Lấy thống kê số lượt ra/vào theo khung giờ.
 GET	    /api/v1/analytics/metrics/environment	Lấy thống kê nhiệt độ trung bình theo phòng/khu vực.
 
+```
 ## 7. Phụ thuộc service khác
 
 - Service này gọi đến service nào?
@@ -80,46 +81,53 @@ GET	    /api/v1/analytics/metrics/environment	Lấy thống kê nhiệt độ tr
 Service nào gọi đến service này?
 - Dashboard/ U: Gọi để lấy dữ liệu hiển thị báo cáo.
 ## 8. Sơ đồ minh họa
-
+linkStyle default interpolate linear
 Có thể vẽ bằng Mermaid, draw.io, Ludichart hoặc ảnh chụp sơ đồ.
 ```mermaid
+
 flowchart LR
-subgraph INPUT["Data Sources & Devices"]
+linkStyle default interpolate linear
 
-    IoT[IoT Ingestion Layer]
-    Camera[AI Vision System]
-    Gate[Smart Access Gate]
-    Core[Core Business Services]
 
-end
-subgraph PLATFORM["Central Analytics Platform"]
+subgraph Upstream ["Upstream Services"]
+    direction TB
 
-    Analytics[Analytics Processing Service]
-
-    DB[(Central Database)]
+    A["IoT Ingestion"]
+    B["AI Vision"]
+    C["Access Gate"]
+    D["Core Business"]
 
 end
-subgraph USERS["Management & Monitoring"]
 
-    Dashboard[Dashboard / User Portal]
+subgraph Analytics ["Analytics Service Boundary"]
+    direction TB
+
+    E["Processing & Analytics<br/>• Aggregate data<br/>• Generate metrics<br/>• Create reports"]
+
+    F[(Analytics Database)]
+
+    E -->|"Store Reports & Metrics"| F
 
 end
-IoT -->|Telemetry Data| Analytics
-Camera -->|Detection Events| Analytics
-Gate -->|Access Logs| Analytics
-Core -->|Business Data| Analytics
 
-Analytics -->|Store Processed Data| DB
+G["Dashboard / Admin UI"]
 
-Dashboard -- GET Reports --> Analytics
+A -->|"POST /sensor-events"| E
+B -->|"POST /detection-events"| E
+C -->|"POST /access-logs"| E
+D -->|"POST /alert-events"| E
 
-classDef source fill:#dff7f2,stroke:#2a9d8f,color:#000,stroke-width:2px;
-classDef service fill:#ece8ff,stroke:#6c63ff,color:#000,stroke-width:2px;
-classDef database fill:#f2f2f2,stroke:#666,color:#000,stroke-width:2px;
-classDef dashboard fill:#fff3d6,stroke:#e9a400,color:#000,stroke-width:2px;
+E -->|"GET /analytics"| G
+classDef upstream fill:#D6F5F3,stroke:#0F766E,stroke-width:2px,color:#111827;
+classDef analytics fill:#FFE4E6,stroke:#E11D48,stroke-width:2px,color:#111827;
+classDef database fill:#F3F4F6,stroke:#4B5563,stroke-width:2px,color:#111827;
+classDef dashboard fill:#DBEAFE,stroke:#2563EB,stroke-width:2px,color:#111827;
 
-class IoT,Camera,Gate,Core source;
-class Analytics service;
-class DB database;
-class Dashboard dashboard;
+class A,B,C,D upstream;
+class E analytics;
+class F database;
+class G dashboard;
+
+style Upstream fill:#F0FDFA,stroke:#14B8A6,stroke-width:2px,color:#111827;
+style Analytics fill:#FFF1F2,stroke:#F43F5E,stroke-width:2px,stroke-dasharray: 8 6,color:#111827;
 ```
