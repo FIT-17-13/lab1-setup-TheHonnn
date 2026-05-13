@@ -106,7 +106,7 @@ subgraph Analytics ["Analytics Service Boundary"]
 
     F[(Analytics Database)]
 
-    E -->|"Store Reports & Metrics"| F
+    E -->|"Reports & Metrics"| F
 
 end
 
