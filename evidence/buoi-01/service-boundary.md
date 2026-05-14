@@ -2,7 +2,7 @@
 
 ## 1. Thông tin nhóm
 
-- Tên nhóm: Nhom 6
+- Tên nhóm: Nhom 5
 - Lớp: CNTT 17-13
 - Thành viên: 4
 - Service nhóm phụ trách: Analytics
